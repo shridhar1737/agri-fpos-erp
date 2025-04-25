@@ -1,37 +1,52 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const products = [
   {
     id: "P001",
     name: "Premium Quality Seeds",
     category: "Seeds",
-    description: "High-yield vegetable seeds",
+    description: "High-yield vegetable seeds certified for organic farming",
     price: 450,
     unit: "packet",
     stock: 200,
+    image: "seed-packet.jpg",
     status: "in-stock"
   },
   {
     id: "P002",
     name: "Organic Fertilizer",
     category: "Fertilizers",
-    description: "Natural bio-fertilizer",
+    description: "100% natural bio-fertilizer with micronutrients",
     price: 850,
     unit: "kg",
     stock: 50,
+    image: "fertilizer.jpg",
     status: "low-stock"
   },
   {
     id: "P003",
     name: "Drip Irrigation Kit",
     category: "Equipment",
-    description: "Water-efficient irrigation system",
+    description: "Complete water-efficient irrigation system with smart controls",
     price: 2500,
     unit: "set",
     stock: 0,
+    image: "irrigation.jpg",
     status: "out-of-stock"
+  },
+  {
+    id: "P004",
+    name: "Crop Protection Net",
+    category: "Equipment",
+    description: "UV-stabilized protection net for pest control",
+    price: 1200,
+    unit: "roll",
+    stock: 75,
+    image: "net.jpg",
+    status: "in-stock"
   }
 ];
 
@@ -63,6 +78,13 @@ export function ProductCatalog() {
                 <Badge variant="secondary" className="w-fit">
                   {product.category}
                 </Badge>
+                <Button 
+                  className="mt-2" 
+                  variant="outline" 
+                  disabled={product.stock === 0}
+                >
+                  {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
+                </Button>
               </div>
             </Card>
           ))}
