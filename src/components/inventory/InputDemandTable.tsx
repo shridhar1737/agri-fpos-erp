@@ -40,6 +40,24 @@ const demandData = [
     unit: "packets",
     status: "pending",
     requestDate: "2024-04-21"
+  },
+  {
+    id: 5,
+    farmer: "Anita Desai",
+    input: "Organic Compost",
+    quantity: 200,
+    unit: "kg",
+    status: "approved",
+    requestDate: "2024-04-17"
+  },
+  {
+    id: 6,
+    farmer: "Prakash Joshi",
+    input: "Irrigation Pipes",
+    quantity: 15,
+    unit: "sets",
+    status: "fulfilled",
+    requestDate: "2024-04-16"
   }
 ];
 
@@ -71,8 +89,9 @@ export function InputDemandTable() {
                   <Badge
                     variant={
                       item.status === "approved" ? "default" :
-                      item.status === "fulfilled" ? "success" : "secondary"
+                      item.status === "fulfilled" ? "warning" : "secondary"
                     }
+                    className={item.status === "fulfilled" ? "bg-green-500 hover:bg-green-600" : ""}
                   >
                     {item.status}
                   </Badge>
