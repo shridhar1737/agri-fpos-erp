@@ -29,7 +29,7 @@ export function DuesDashboard() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Overdue > 30 days</CardTitle>
+            <CardTitle className="text-lg">Overdue &gt; 30 days</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-red-600">
