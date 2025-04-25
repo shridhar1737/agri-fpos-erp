@@ -80,7 +80,7 @@ export function FarmerTable() {
                 <SelectValue placeholder="Village" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Villages</SelectItem>
+                <SelectItem value="all-villages">All Villages</SelectItem>
                 {villages.map(village => (
                   <SelectItem key={village} value={village}>{village}</SelectItem>
                 ))}
@@ -92,7 +92,7 @@ export function FarmerTable() {
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Status</SelectItem>
+                <SelectItem value="all-status">All Status</SelectItem>
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="inactive">Inactive</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
@@ -104,7 +104,7 @@ export function FarmerTable() {
                 <SelectValue placeholder="Crop Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Crops</SelectItem>
+                <SelectItem value="all-crops">All Crops</SelectItem>
                 {crops.map(crop => (
                   <SelectItem key={crop} value={crop}>{crop}</SelectItem>
                 ))}
