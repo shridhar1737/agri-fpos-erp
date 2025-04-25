@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,7 +27,17 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					50: '#f0f9e8',
+					100: '#dbf0ce',
+					200: '#bde3a8',
+					300: '#9cd27b',
+					400: '#7fc156',
+					500: '#5fa436',
+					600: '#4c8f27',
+					700: '#3b721e',
+					800: '#305c19',
+					900: '#294c17',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -52,16 +63,18 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+				success: {
+					DEFAULT: '#22c55e',
+					foreground: '#ffffff'
+				},
+				warning: {
+					DEFAULT: '#f59e0b',
+					foreground: '#ffffff'
+				},
+				danger: {
+					DEFAULT: '#ef4444',
+					foreground: '#ffffff'
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
