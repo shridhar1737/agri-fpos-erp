@@ -32,21 +32,21 @@ const cropData = [
 const alerts = [
   {
     id: "1",
-    type: "warning",
+    type: "warning" as const,
     title: "Low Stock Alert",
     description: "Urea stock has fallen below the minimum threshold of 50 bags.",
     time: "2 hours ago"
   },
   {
     id: "2",
-    type: "info",
+    type: "info" as const,
     title: "Payment Received",
     description: "₹25,000 payment received from Bansal FPO for wheat delivery.",
     time: "5 hours ago"
   },
   {
     id: "3",
-    type: "danger",
+    type: "danger" as const,
     title: "Compliance Deadline",
     description: "Annual GST filing is due in 3 days. Complete all documentation.",
     time: "1 day ago"
