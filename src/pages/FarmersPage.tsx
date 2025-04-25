@@ -1,29 +1,32 @@
 
 import { AppLayout } from "@/components/layout/AppLayout";
-import { FarmersList } from "@/components/farmers/FarmersList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FarmerTable } from "@/components/farmers/FarmerTable";
+import { FarmerRegistrationForm } from "@/components/farmers/FarmerRegistrationForm";
+import { DuesDashboard } from "@/components/farmers/DuesDashboard";
+import { BulkImportExport } from "@/components/farmers/BulkImportExport";
 
 export default function FarmersPage() {
   return (
     <AppLayout title="Farmers Management">
-      <Tabs defaultValue="all" className="w-full">
+      <Tabs defaultValue="directory" className="w-full">
         <TabsList>
-          <TabsTrigger value="all">All Farmers</TabsTrigger>
-          <TabsTrigger value="active">Active</TabsTrigger>
-          <TabsTrigger value="inactive">Inactive</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
+          <TabsTrigger value="directory">Farmers Directory</TabsTrigger>
+          <TabsTrigger value="registration">Registration</TabsTrigger>
+          <TabsTrigger value="dues">Dues Dashboard</TabsTrigger>
+          <TabsTrigger value="import">Bulk Import/Export</TabsTrigger>
         </TabsList>
-        <TabsContent value="all" className="mt-4">
-          <FarmersList />
+        <TabsContent value="directory" className="mt-4">
+          <FarmerTable />
         </TabsContent>
-        <TabsContent value="active" className="mt-4">
-          <FarmersList />
+        <TabsContent value="registration" className="mt-4">
+          <FarmerRegistrationForm />
         </TabsContent>
-        <TabsContent value="inactive" className="mt-4">
-          <FarmersList />
+        <TabsContent value="dues" className="mt-4">
+          <DuesDashboard />
         </TabsContent>
-        <TabsContent value="pending" className="mt-4">
-          <FarmersList />
+        <TabsContent value="import" className="mt-4">
+          <BulkImportExport />
         </TabsContent>
       </Tabs>
     </AppLayout>
