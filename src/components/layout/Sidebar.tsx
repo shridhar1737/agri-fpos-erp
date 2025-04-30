@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Home, Users, Package, FileText, BarChart, Calendar, Truck, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -43,9 +42,9 @@ export function Sidebar({ className }: SidebarProps) {
     <aside className={cn("flex flex-col w-64 border-r border-gray-200 bg-white p-4 h-screen", className)}>
       <div className="flex items-center gap-2 px-2 mb-8">
         <div className="h-8 w-8 rounded bg-primary-500 flex items-center justify-center">
-          <span className="text-white font-semibold text-lg">A</span>
+          <span className="text-white font-semibold text-lg">F</span>
         </div>
-        <h1 className="text-xl font-bold text-gray-800">AgriTrade FPO</h1>
+        <h1 className="text-xl font-bold text-gray-800">FPO ERP System</h1>
       </div>
       
       <nav className="space-y-1 flex-1">
@@ -112,7 +111,7 @@ export function Sidebar({ className }: SidebarProps) {
           <div className="h-8 w-8 rounded-full bg-gray-200"></div>
           <div>
             <p className="text-sm font-medium text-gray-700">Admin User</p>
-            <p className="text-xs text-gray-500">admin@agritrade.com</p>
+            <p className="text-xs text-gray-500">admin@fpoerp.com</p>
           </div>
         </div>
       </div>
