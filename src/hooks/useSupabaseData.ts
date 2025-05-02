@@ -70,27 +70,35 @@ export function useSupabaseData<T>({
     fetchData();
   }, [tableName, select, filter, orderBy, toast]);
 
-  // Fix the refetch function to avoid the recursive type issue
-  const refetch = async () => {
+  // Fixed refetch function with proper type annotations to avoid infinite type instantiation
+  const refetch = async (): Promise<void> => {
     setLoading(true);
     setError(null);
     
     try {
-      // Create the base query
+      // Explicitly type the query to avoid deep type instantiation
+      type QueryType = ReturnType<typeof supabase.from>;
+      
+      // Create the base query with explicit type
       const baseQuery = supabase.from(tableName).select(select);
       
+      // Use explicit typing for intermediate queries
+      let finalQuery: QueryType = baseQuery;
+      
       // Apply filter if provided
-      const filteredQuery = filter 
-        ? baseQuery.eq(filter.column, filter.value) 
-        : baseQuery;
+      if (filter) {
+        finalQuery = baseQuery.eq(filter.column, filter.value);
+      }
       
       // Apply ordering if provided
-      const orderedQuery = orderBy 
-        ? filteredQuery.order(orderBy.column, { ascending: orderBy.ascending !== false }) 
-        : filteredQuery;
+      if (orderBy) {
+        finalQuery = (filter ? finalQuery : baseQuery).order(orderBy.column, { 
+          ascending: orderBy.ascending !== false 
+        });
+      }
       
       // Execute the final query
-      const { data: responseData, error } = await orderedQuery;
+      const { data: responseData, error } = await finalQuery;
 
       if (error) {
         throw new Error(error.message);
