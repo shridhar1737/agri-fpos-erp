@@ -51,7 +51,7 @@ export function Sidebar({ className }: SidebarProps) {
       <nav className="space-y-1 flex-1">
         <SidebarItem 
           icon={Home} 
-          label="Dashboard" 
+          label="Main-Dashboard" 
           to="/" 
           active={activePath === '/'} 
           onClick={() => handleNavigation('/')} 
