@@ -4,8 +4,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
 
 // Define valid table names as a type to satisfy TypeScript
-type TableName = 'farmers' | 'customers' | 'sale_orders' | 'invoices' | 
-                'expenses' | 'input_demands' | 'payments' | 'stock_movements';
+export type TableName = 'farmers' | 'customers' | 'sale_orders' | 'invoices' | 
+                'expenses' | 'input_demands' | 'payments' | 'stock_movements' | 'purchase_orders';
 
 interface UseSupabaseDataOptions<T> {
   tableName: TableName;

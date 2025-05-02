@@ -263,6 +263,45 @@ export type Database = {
           },
         ]
       }
+      purchase_orders: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          product_name: string
+          quantity: number
+          rate: number
+          status: string
+          total_amount: number
+          updated_at: string
+          vendor_name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          product_name: string
+          quantity: number
+          rate: number
+          status?: string
+          total_amount: number
+          updated_at?: string
+          vendor_name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          product_name?: string
+          quantity?: number
+          rate?: number
+          status?: string
+          total_amount?: number
+          updated_at?: string
+          vendor_name?: string
+        }
+        Relationships: []
+      }
       sale_orders: {
         Row: {
           created_at: string
