@@ -70,24 +70,27 @@ export function useSupabaseData<T>({
     fetchData();
   }, [tableName, select, filter, orderBy, toast]);
 
+  // Fix the refetch function to avoid the recursive type issue
   const refetch = async () => {
     setLoading(true);
+    setError(null);
+    
     try {
-      let query = supabase
-        .from(tableName)
-        .select(select);
-
-      if (filter) {
-        query = query.eq(filter.column, filter.value);
-      }
-
-      if (orderBy) {
-        query = query.order(orderBy.column, { 
-          ascending: orderBy.ascending !== false 
-        });
-      }
-
-      const { data: responseData, error } = await query;
+      // Create the base query
+      const baseQuery = supabase.from(tableName).select(select);
+      
+      // Apply filter if provided
+      const filteredQuery = filter 
+        ? baseQuery.eq(filter.column, filter.value) 
+        : baseQuery;
+      
+      // Apply ordering if provided
+      const orderedQuery = orderBy 
+        ? filteredQuery.order(orderBy.column, { ascending: orderBy.ascending !== false }) 
+        : filteredQuery;
+      
+      // Execute the final query
+      const { data: responseData, error } = await orderedQuery;
 
       if (error) {
         throw new Error(error.message);
