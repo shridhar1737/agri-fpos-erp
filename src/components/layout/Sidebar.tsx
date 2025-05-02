@@ -45,7 +45,7 @@ export function Sidebar({ className }: SidebarProps) {
         <div className="h-8 w-8 rounded bg-primary-500 flex items-center justify-center">
           <span className="text-white font-semibold text-lg">A</span>
         </div>
-        <h1 className="text-xl font-bold text-gray-800">AgriTrade FPO</h1>
+        <h1 className="text-xl font-bold text-gray-800">FPO-ERP</h1>
       </div>
       
       <nav className="space-y-1 flex-1">
