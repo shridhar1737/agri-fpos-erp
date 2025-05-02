@@ -6,25 +6,76 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, User, MapPin } from "lucide-react";
+import { Upload, User, MapPin, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 export function FarmerRegistrationForm() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    village: "",
+    district: "",
+    landSize: "",
+    mainCrop: "",
+    notes: ""
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSelectChange = (id: string, value: string) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate API request
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const { data, error } = await supabase
+        .from('farmers')
+        .insert([{ 
+          name: formData.name,
+          village: formData.village,
+          land_size: parseFloat(formData.landSize),
+          main_crop: formData.mainCrop || "Not specified",
+          status: "Active"
+        }])
+        .select();
+
+      if (error) throw error;
+      
       toast({
         title: "Farmer registered successfully",
         description: "The farmer has been added to the system."
       });
-    }, 1500);
+
+      // Reset form
+      setFormData({
+        name: "",
+        phone: "",
+        village: "",
+        district: "",
+        landSize: "",
+        mainCrop: "",
+        notes: ""
+      });
+      
+    } catch (error: any) {
+      console.error("Error registering farmer:", error);
+      toast({
+        title: "Registration failed",
+        description: error.message || "Could not register farmer. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,22 +89,46 @@ export function FarmerRegistrationForm() {
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 space-y-2">
                 <Label htmlFor="name">Full Name*</Label>
-                <Input id="name" placeholder="Farmer's full name" required />
+                <Input 
+                  id="name" 
+                  placeholder="Farmer's full name" 
+                  required 
+                  value={formData.name}
+                  onChange={handleChange}
+                />
               </div>
               <div className="flex-1 space-y-2">
                 <Label htmlFor="phone">Phone Number*</Label>
-                <Input id="phone" placeholder="10-digit mobile number" required />
+                <Input 
+                  id="phone" 
+                  placeholder="10-digit mobile number" 
+                  required 
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
               </div>
             </div>
             
             <div className="flex flex-col md:flex-row gap-4 mt-4">
               <div className="flex-1 space-y-2">
                 <Label htmlFor="village">Village*</Label>
-                <Input id="village" placeholder="Village name" required />
+                <Input 
+                  id="village" 
+                  placeholder="Village name" 
+                  required 
+                  value={formData.village}
+                  onChange={handleChange}
+                />
               </div>
               <div className="flex-1 space-y-2">
                 <Label htmlFor="district">District*</Label>
-                <Input id="district" placeholder="District" required />
+                <Input 
+                  id="district" 
+                  placeholder="District" 
+                  required 
+                  value={formData.district}
+                  onChange={handleChange}
+                />
               </div>
             </div>
 
@@ -93,8 +168,16 @@ export function FarmerRegistrationForm() {
 
             <div className="flex flex-col md:flex-row gap-4 mt-4">
               <div className="flex-1 space-y-2">
-                <Label htmlFor="land-size">Land Size (Acres)*</Label>
-                <Input id="land-size" type="number" step="0.01" placeholder="Total land in acres" required />
+                <Label htmlFor="landSize">Land Size (Acres)*</Label>
+                <Input 
+                  id="landSize" 
+                  type="number" 
+                  step="0.01" 
+                  placeholder="Total land in acres" 
+                  required
+                  value={formData.landSize}
+                  onChange={handleChange}
+                />
               </div>
               <div className="flex-1 space-y-2">
                 <Label htmlFor="gps">GPS Coordinates</Label>
@@ -108,31 +191,63 @@ export function FarmerRegistrationForm() {
             </div>
             
             <div className="mt-4 space-y-2">
-              <Label htmlFor="main-crop">Main Crops</Label>
-              <Select>
+              <Label htmlFor="mainCrop">Main Crop</Label>
+              <Select onValueChange={(value) => handleSelectChange("mainCrop", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select primary crop" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="wheat">Wheat</SelectItem>
-                  <SelectItem value="rice">Rice</SelectItem>
-                  <SelectItem value="maize">Maize</SelectItem>
-                  <SelectItem value="pulses">Pulses</SelectItem>
-                  <SelectItem value="vegetables">Vegetables</SelectItem>
+                  <SelectItem value="Wheat">Wheat</SelectItem>
+                  <SelectItem value="Rice">Rice</SelectItem>
+                  <SelectItem value="Maize">Maize</SelectItem>
+                  <SelectItem value="Pulses">Pulses</SelectItem>
+                  <SelectItem value="Vegetables">Vegetables</SelectItem>
+                  <SelectItem value="Sugarcane">Sugarcane</SelectItem>
+                  <SelectItem value="Mustard">Mustard</SelectItem>
+                  <SelectItem value="Barley">Barley</SelectItem>
+                  <SelectItem value="Paddy">Paddy</SelectItem>
+                  <SelectItem value="Tomato">Tomato</SelectItem>
+                  <SelectItem value="Onion">Onion</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div className="mt-4 space-y-2">
               <Label htmlFor="notes">Additional Notes</Label>
-              <Textarea id="notes" placeholder="Any additional information about the farmer" />
+              <Textarea 
+                id="notes" 
+                placeholder="Any additional information about the farmer"
+                value={formData.notes}
+                onChange={handleChange}
+              />
             </div>
           </div>
           
           <div className="flex justify-end gap-4 pt-4">
-            <Button type="button" variant="outline">Cancel</Button>
+            <Button 
+              type="button" 
+              variant="outline"
+              onClick={() => {
+                setFormData({
+                  name: "",
+                  phone: "",
+                  village: "",
+                  district: "",
+                  landSize: "",
+                  mainCrop: "",
+                  notes: ""
+                });
+              }}
+            >
+              Cancel
+            </Button>
             <Button type="submit" disabled={loading}>
-              {loading ? "Registering..." : "Register Farmer"}
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Registering...
+                </>
+              ) : "Register Farmer"}
             </Button>
           </div>
         </form>
