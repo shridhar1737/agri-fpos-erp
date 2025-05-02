@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -24,9 +23,9 @@ export function FarmerTable() {
   const [farmers, setFarmers] = useState<Farmer[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [villageFilter, setVillageFilter] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [cropFilter, setCropFilter] = useState("");
+  const [villageFilter, setVillageFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [cropFilter, setCropFilter] = useState("all");
 
   // Fetch farmers data from Supabase
   useEffect(() => {
@@ -66,9 +65,9 @@ export function FarmerTable() {
   // Filter farmers based on search and filters
   const filteredFarmers = farmers.filter(farmer => {
     const matchesSearch = farmer.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesVillage = villageFilter === "" || farmer.village === villageFilter;
-    const matchesStatus = statusFilter === "" || farmer.status === statusFilter;
-    const matchesCrop = cropFilter === "" || farmer.main_crop === cropFilter;
+    const matchesVillage = villageFilter === "all" || farmer.village === villageFilter;
+    const matchesStatus = statusFilter === "all" || farmer.status === statusFilter;
+    const matchesCrop = cropFilter === "all" || farmer.main_crop === cropFilter;
     
     return matchesSearch && matchesVillage && matchesStatus && matchesCrop;
   });
@@ -131,7 +130,7 @@ export function FarmerTable() {
                 <SelectValue placeholder="Village" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Villages</SelectItem>
+                <SelectItem value="all">All Villages</SelectItem>
                 {villages.map(village => (
                   <SelectItem key={village} value={village}>{village}</SelectItem>
                 ))}
@@ -143,7 +142,7 @@ export function FarmerTable() {
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Status</SelectItem>
+                <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="Active">Active</SelectItem>
                 <SelectItem value="Inactive">Inactive</SelectItem>
                 <SelectItem value="Pending">Pending</SelectItem>
@@ -155,7 +154,7 @@ export function FarmerTable() {
                 <SelectValue placeholder="Crop Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Crops</SelectItem>
+                <SelectItem value="all">All Crops</SelectItem>
                 {crops.map(crop => (
                   <SelectItem key={crop} value={crop}>{crop}</SelectItem>
                 ))}

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function ReportFilters() {
   return (
@@ -18,28 +19,32 @@ export function ReportFilters() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
-            <select 
-              id="category"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-            >
-              <option value="">All Categories</option>
-              <option value="vegetables">Vegetables</option>
-              <option value="fruits">Fruits</option>
-              <option value="grains">Grains</option>
-            </select>
+            <Select>
+              <SelectTrigger id="category">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="vegetables">Vegetables</SelectItem>
+                <SelectItem value="fruits">Fruits</SelectItem>
+                <SelectItem value="grains">Grains</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="space-y-2">
             <Label htmlFor="region">Region</Label>
-            <select 
-              id="region"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-            >
-              <option value="">All Regions</option>
-              <option value="north">North</option>
-              <option value="south">South</option>
-              <option value="east">East</option>
-              <option value="west">West</option>
-            </select>
+            <Select>
+              <SelectTrigger id="region">
+                <SelectValue placeholder="Select region" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Regions</SelectItem>
+                <SelectItem value="north">North</SelectItem>
+                <SelectItem value="south">South</SelectItem>
+                <SelectItem value="east">East</SelectItem>
+                <SelectItem value="west">West</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="mt-4 flex justify-end space-x-2">
