@@ -5,6 +5,9 @@ import { ChartCard } from "@/components/dashboard/ChartCard";
 import { AlertsCard } from "@/components/dashboard/AlertsCard";
 import { QuickActionsCard } from "@/components/dashboard/QuickActionsCard";
 import { ShoppingCart, Package, Truck, Users } from "lucide-react";
+import { SeasonalProductionChart } from "@/components/dashboard/SeasonalProductionChart";
+import { InputYieldRatioChart } from "@/components/dashboard/InputYieldRatioChart";
+import { MarketPriceTrendChart } from "@/components/dashboard/MarketPriceTrendChart";
 
 const salesData = [
   { name: "Jan", value: 40000 },
@@ -104,6 +107,15 @@ export default function Dashboard() {
             type="bar"
           />
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 mb-6">
+        <MarketPriceTrendChart />
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <SeasonalProductionChart />
+        <InputYieldRatioChart />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

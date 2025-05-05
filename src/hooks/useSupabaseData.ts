@@ -70,29 +70,31 @@ export function useSupabaseData<T>({
     fetchData();
   }, [tableName, select, filter, orderBy, toast]);
 
-  // Completely rewritten refetch function with simple approach to avoid type issues
+  // Fixed refetch function with explicit typing to prevent deep instantiation errors
   const refetch = async (): Promise<void> => {
     setLoading(true);
     setError(null);
     
     try {
-      // Define a simple query without complex types
-      let query = supabase.from(tableName).select(select);
+      // Create a base query with explicit typing
+      const baseQuery = supabase.from(tableName).select(select);
       
-      // Apply filter if provided
+      // Apply filters and ordering separately to avoid type instantiation depth issues
+      let finalQuery = baseQuery;
+      
       if (filter) {
-        query = query.eq(filter.column, filter.value);
+        finalQuery = baseQuery.eq(filter.column, filter.value);
       }
       
-      // Apply ordering if provided
       if (orderBy) {
-        query = query.order(orderBy.column, { 
-          ascending: orderBy.ascending !== false 
-        });
+        finalQuery = (filter ? finalQuery : baseQuery).order(
+          orderBy.column, 
+          { ascending: orderBy.ascending !== false }
+        );
       }
       
-      // Execute the query
-      const { data: responseData, error } = await query;
+      // Execute the final query
+      const { data: responseData, error } = await finalQuery;
 
       if (error) {
         throw new Error(error.message);
