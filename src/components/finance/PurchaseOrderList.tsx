@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Search, FileText, Loader2, ExternalLink, RefreshCcw } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 interface PurchaseOrder {
   id: string;
@@ -25,6 +27,8 @@ interface PurchaseOrder {
 export function PurchaseOrderList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const { toast } = useToast();
+  
   const { data: purchaseOrders, loading, error, refetch } = useSupabaseData<PurchaseOrder>({ 
     tableName: 'purchase_orders',
     orderBy: { column: 'created_at', ascending: false }
@@ -32,7 +36,15 @@ export function PurchaseOrderList() {
 
   // Force refetch on component load and when refreshTrigger changes
   useEffect(() => {
-    refetch();
+    const fetchPurchaseOrders = async () => {
+      try {
+        await refetch();
+      } catch (err) {
+        console.error("Error fetching purchase orders:", err);
+      }
+    };
+    
+    fetchPurchaseOrders();
   }, [refetch, refreshTrigger]);
 
   const handleRefresh = () => {

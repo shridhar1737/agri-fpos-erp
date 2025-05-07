@@ -71,33 +71,36 @@ export function useSupabaseData<T>({
   }, [tableName, select, filter, orderBy, toast]);
 
   // Completely rewritten refetch function to avoid type instantiation errors
-  const refetch = async (): Promise<void> => {
+  const refetch = async () => {
     setLoading(true);
     setError(null);
     
     try {
-      // Create the query step by step to avoid complex type inference
+      // Create query step by step without complex chaining
       const baseQuery = supabase.from(tableName);
       const selectQuery = baseQuery.select(select);
       
       // Apply filter if present
-      let finalQuery = selectQuery;
+      let queryWithFilter = selectQuery;
       if (filter) {
-        finalQuery = selectQuery.eq(filter.column, filter.value);
+        queryWithFilter = selectQuery.eq(filter.column, filter.value);
       }
       
       // Apply ordering if present
+      let finalQuery = queryWithFilter;
       if (orderBy) {
-        finalQuery = finalQuery.order(orderBy.column, { 
+        finalQuery = queryWithFilter.order(orderBy.column, { 
           ascending: orderBy.ascending !== false 
         });
       }
       
       // Execute the query
-      const { data: responseData, error: queryError } = await finalQuery;
+      const response = await finalQuery;
+      const responseData = response.data;
+      const responseError = response.error;
 
-      if (queryError) {
-        throw new Error(queryError.message);
+      if (responseError) {
+        throw new Error(responseError.message);
       }
 
       setData(responseData as T[]);

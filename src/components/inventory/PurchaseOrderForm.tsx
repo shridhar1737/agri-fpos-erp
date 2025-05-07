@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -77,7 +76,6 @@ export function PurchaseOrderForm() {
         quantity: values.quantity,
         rate: values.rate,
         total_amount: totalAmount,
-        // If a document was uploaded, store its URL
         document_url: documentUrl || null,
       });
       
@@ -113,6 +111,8 @@ export function PurchaseOrderForm() {
       title: "Document Attached",
       description: "The document has been attached to this purchase order."
     });
+    // Switch back to the details tab after successful upload
+    setActiveTab("details");
   };
 
   return (

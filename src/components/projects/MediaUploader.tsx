@@ -26,6 +26,9 @@ export function MediaUploader({
   const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
+  
+  // Create a reference to the file input element
+  const fileInputRef = useState<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -55,6 +58,11 @@ export function MediaUploader({
     } else {
       setPreview(null);
     }
+  };
+
+  const openFileBrowser = () => {
+    // Programmatically click the hidden file input
+    fileInputRef[0]?.click();
   };
 
   const uploadFile = async () => {
@@ -130,12 +138,15 @@ export function MediaUploader({
                 className="hidden" 
                 onChange={handleFileChange} 
                 accept={accept}
+                ref={(el) => fileInputRef[0] = el}
               />
-              <Label htmlFor="file-upload" className="cursor-pointer">
-                <Button variant="outline" type="button">
-                  Browse Files
-                </Button>
-              </Label>
+              <Button 
+                variant="outline" 
+                type="button" 
+                onClick={openFileBrowser}
+              >
+                Browse Files
+              </Button>
               <p className="text-xs text-gray-400 mt-2">
                 Max size: {maxSizeMB}MB
               </p>
