@@ -89,12 +89,13 @@ export function InputYieldRatioChart() {
           ))}
         </div>
 
-        <div className="h-[300px] w-full">
+        <div className="h-[300px] w-full overflow-visible">
           <ChartContainer config={config} className="w-full h-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={cropInputOutput}
-                margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                margin={{ top: 20, right: 30, left: 40, bottom: 30 }}
+                barSize={20}
               >
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis 
@@ -102,22 +103,53 @@ export function InputYieldRatioChart() {
                   tick={{ fontSize: 12 }}
                   tickLine={{ stroke: '#d1d5db' }}
                   axisLine={{ stroke: '#d1d5db' }}
+                  height={50}
                 />
                 <YAxis 
-                  label={{ value: 'Amount (₹)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+                  label={{ 
+                    value: 'Amount (₹)', 
+                    angle: -90, 
+                    position: 'insideLeft',
+                    offset: -30,
+                    style: { textAnchor: 'middle', fontSize: 12 } 
+                  }}
                   tick={{ fontSize: 12 }}
                   tickLine={{ stroke: '#d1d5db' }}
                   axisLine={{ stroke: '#d1d5db' }}
                   tickFormatter={(value) => `₹${(value/1000)}k`}
+                  width={80}
                 />
                 <Tooltip 
                   formatter={(value) => [`₹${Number(value).toLocaleString()}`, ``]}
                   labelFormatter={(label) => `Crop: ${label}`}
-                  contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+                    borderRadius: '6px', 
+                    boxShadow: '0 2px 5px rgba(0,0,0,0.1)', 
+                    border: '1px solid #e5e7eb',
+                    padding: '8px'
+                  }}
+                  wrapperStyle={{ zIndex: 1000 }}
+                  cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
                 />
-                <Legend />
-                <Bar dataKey="inputCost" name="Input Cost" fill="#dc2626" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="yieldValue" name="Yield Value" fill="#16a34a" radius={[4, 4, 0, 0]} />
+                <Legend
+                  verticalAlign="top"
+                  wrapperStyle={{ paddingBottom: 10 }}
+                />
+                <Bar 
+                  dataKey="inputCost" 
+                  name="Input Cost" 
+                  fill="#dc2626" 
+                  radius={[4, 4, 0, 0]}
+                  barSize={30}
+                />
+                <Bar 
+                  dataKey="yieldValue" 
+                  name="Yield Value" 
+                  fill="#16a34a" 
+                  radius={[4, 4, 0, 0]}
+                  barSize={30}
+                />
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>

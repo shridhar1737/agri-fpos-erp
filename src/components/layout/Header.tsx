@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { GlobalSearch } from "./GlobalSearch";
 
 interface HeaderProps {
   title: string;
@@ -20,14 +21,7 @@ export function Header({ title }: HeaderProps) {
       <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
       
       <div className="flex items-center gap-4">
-        <div className="hidden sm:flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2">
-          <Search className="h-4 w-4 text-gray-500" />
-          <input 
-            type="search" 
-            placeholder="Search..." 
-            className="border-none bg-transparent outline-none text-sm w-40 lg:w-60"
-          />
-        </div>
+        <GlobalSearch />
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
