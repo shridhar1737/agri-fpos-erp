@@ -1,4 +1,4 @@
 
-import { PurchaseOrderList } from "./purchase-orders/PurchaseOrderList";
+import { PurchaseOrderList as PurchaseOrderListComponent } from "./purchase-orders/PurchaseOrderList";
 
-export { PurchaseOrderList };
+export { PurchaseOrderListComponent as PurchaseOrderList };

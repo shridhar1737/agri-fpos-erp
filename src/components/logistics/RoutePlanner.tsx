@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,8 +49,23 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+// Make sure this matches the interface used in RouteEntryList.tsx
+interface RouteEntry {
+  id: string;
+  consignmentId: string;
+  shipDate: Date;
+  customerName: string;
+  distance: string;
+  commodity: string;
+  route: string;
+  quantity: string;
+  carrierName: string;
+  status: "Pending" | "In Transit" | "Delivered" | "Cancelled";
+  deliveryDate?: Date;
+}
+
 export function RoutePlanner() {
-  const [routes, setRoutes] = useState<(FormValues & { id: string })[]>([]);
+  const [routes, setRoutes] = useState<RouteEntry[]>([]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -68,7 +82,8 @@ export function RoutePlanner() {
   });
 
   function onSubmit(data: FormValues) {
-    const newRoute = {
+    // Create a new route entry with required id field and all other fields properly typed
+    const newRoute: RouteEntry = {
       ...data,
       id: `ROUTE-${Math.floor(Math.random() * 10000)}`,
     };

@@ -70,37 +70,32 @@ export function useSupabaseData<T>({
     fetchData();
   }, [tableName, select, filter, orderBy, toast]);
 
-  // Completely rewritten refetch function to avoid type instantiation errors
+  // Fixed refetch function that avoids type instantiation errors
   const refetch = async () => {
     setLoading(true);
     setError(null);
     
     try {
-      // Create query step by step without complex chaining
-      const baseQuery = supabase.from(tableName);
-      const selectQuery = baseQuery.select(select);
+      // Build query step by step to avoid complex chaining
+      let query = supabase.from(tableName).select(select);
       
       // Apply filter if present
-      let queryWithFilter = selectQuery;
       if (filter) {
-        queryWithFilter = selectQuery.eq(filter.column, filter.value);
+        query = query.eq(filter.column, filter.value);
       }
       
       // Apply ordering if present
-      let finalQuery = queryWithFilter;
       if (orderBy) {
-        finalQuery = queryWithFilter.order(orderBy.column, { 
+        query = query.order(orderBy.column, { 
           ascending: orderBy.ascending !== false 
         });
       }
       
       // Execute the query
-      const response = await finalQuery;
-      const responseData = response.data;
-      const responseError = response.error;
+      const { data: responseData, error } = await query;
 
-      if (responseError) {
-        throw new Error(responseError.message);
+      if (error) {
+        throw new Error(error.message);
       }
 
       setData(responseData as T[]);
