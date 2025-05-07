@@ -89,16 +89,31 @@ export function InputYieldRatioChart() {
           ))}
         </div>
 
-        <div className="h-[300px]">
-          <ChartContainer config={config}>
+        <div className="h-[300px] w-full">
+          <ChartContainer config={config} className="w-full h-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={cropInputOutput}>
+              <BarChart 
+                data={cropInputOutput}
+                margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="name" />
-                <YAxis label={{ value: 'Amount (₹)', angle: -90, position: 'insideLeft' }} />
+                <XAxis 
+                  dataKey="name"
+                  tick={{ fontSize: 12 }}
+                  tickLine={{ stroke: '#d1d5db' }}
+                  axisLine={{ stroke: '#d1d5db' }}
+                />
+                <YAxis 
+                  label={{ value: 'Amount (₹)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+                  tick={{ fontSize: 12 }}
+                  tickLine={{ stroke: '#d1d5db' }}
+                  axisLine={{ stroke: '#d1d5db' }}
+                  tickFormatter={(value) => `₹${(value/1000)}k`}
+                />
                 <Tooltip 
-                  formatter={(value) => [`₹${value.toLocaleString()}`, ``]}
+                  formatter={(value) => [`₹${Number(value).toLocaleString()}`, ``]}
                   labelFormatter={(label) => `Crop: ${label}`}
+                  contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}
                 />
                 <Legend />
                 <Bar dataKey="inputCost" name="Input Cost" fill="#dc2626" radius={[4, 4, 0, 0]} />

@@ -111,16 +111,30 @@ export function MarketPriceTrendChart() {
             </TabsList>
           </div>
           
-          <TabsContent value="line" className="h-[300px]">
-            <ChartContainer config={config}>
+          <TabsContent value="line" className="w-full h-[300px]">
+            <ChartContainer config={config} className="w-full h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={marketTrends[selectedCrop as keyof typeof marketTrends]}>
+                <LineChart 
+                  data={marketTrends[selectedCrop as keyof typeof marketTrends]}
+                  margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" />
-                  <YAxis label={{ value: 'Price (₹/quintal)', angle: -90, position: 'insideLeft' }} />
+                  <XAxis 
+                    dataKey="month" 
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
+                  <YAxis 
+                    label={{ value: 'Price (₹/quintal)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
                   <Tooltip 
                     formatter={(value) => [`₹${value}/quintal`, ``]}
                     labelFormatter={(label) => `Month: ${label}`}
+                    contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}
                   />
                   <Legend />
                   <Line 
@@ -153,16 +167,30 @@ export function MarketPriceTrendChart() {
             </ChartContainer>
           </TabsContent>
           
-          <TabsContent value="area" className="h-[300px]">
-            <ChartContainer config={config}>
+          <TabsContent value="area" className="w-full h-[300px]">
+            <ChartContainer config={config} className="w-full h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={marketTrends[selectedCrop as keyof typeof marketTrends]}>
+                <AreaChart 
+                  data={marketTrends[selectedCrop as keyof typeof marketTrends]}
+                  margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" />
-                  <YAxis label={{ value: 'Price (₹/quintal)', angle: -90, position: 'insideLeft' }} />
+                  <XAxis 
+                    dataKey="month" 
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
+                  <YAxis 
+                    label={{ value: 'Price (₹/quintal)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
                   <Tooltip 
                     formatter={(value) => [`₹${value}/quintal`, ``]}
                     labelFormatter={(label) => `Month: ${label}`}
+                    contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}
                   />
                   <Legend />
                   <Area 

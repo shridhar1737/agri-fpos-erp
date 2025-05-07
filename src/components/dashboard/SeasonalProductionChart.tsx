@@ -75,16 +75,30 @@ export function SeasonalProductionChart() {
             </TabsList>
           </div>
           
-          <TabsContent value="line" className="h-[300px]">
-            <ChartContainer config={config}>
+          <TabsContent value="line" className="w-full h-[300px]">
+            <ChartContainer config={config} className="w-full h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={seasonalData}>
+                <LineChart 
+                  data={seasonalData}
+                  margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" />
-                  <YAxis label={{ value: 'Production (Quintals)', angle: -90, position: 'insideLeft' }} />
+                  <XAxis 
+                    dataKey="month" 
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
+                  <YAxis 
+                    label={{ value: 'Production (Quintals)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
                   <Tooltip 
                     formatter={(value) => [`${value} quintals`, ``]}
                     labelFormatter={(label) => `Month: ${label}`}
+                    contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}
                   />
                   <Legend />
                   <Line 
@@ -116,16 +130,30 @@ export function SeasonalProductionChart() {
             </ChartContainer>
           </TabsContent>
           
-          <TabsContent value="bar" className="h-[300px]">
-            <ChartContainer config={config}>
+          <TabsContent value="bar" className="w-full h-[300px]">
+            <ChartContainer config={config} className="w-full h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={seasonalData}>
+                <BarChart 
+                  data={seasonalData}
+                  margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" />
-                  <YAxis label={{ value: 'Production (Quintals)', angle: -90, position: 'insideLeft' }} />
+                  <XAxis 
+                    dataKey="month"
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
+                  <YAxis 
+                    label={{ value: 'Production (Quintals)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#d1d5db' }}
+                    axisLine={{ stroke: '#d1d5db' }}
+                  />
                   <Tooltip 
                     formatter={(value) => [`${value} quintals`, ``]}
                     labelFormatter={(label) => `Month: ${label}`}
+                    contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}
                   />
                   <Legend />
                   <Bar dataKey="kharif" fill="#16a34a" radius={[4, 4, 0, 0]} />
